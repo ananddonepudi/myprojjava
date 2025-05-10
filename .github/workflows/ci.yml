@@ -15,7 +15,7 @@ jobs:
     runs-on: ${{matrix.os}}  
     strategy:
       matrix: 
-        os: [ubuntu-latest, windows-latest]
+        os: [ubuntu-latest]
       
     
     steps:
@@ -31,6 +31,12 @@ jobs:
 
     - name: Build with Gradle
       run: ./gradlew build
-
+    - name: Build and Push Docker Image
+      uses: mr-smithers-excellent/docker-build-push@v4
+      with:
+        image: anandskd/demoapp
+        registry: docker.io
+        username: ${{ secrets.DOCKER_USERNAME }}
+        password: ${{ secrets.DOCKER_PASSWORD }}
 
          
